@@ -31,3 +31,6 @@ Atlanta Food Finder is a web application built using Django and Google Maps API 
 
  - Write and view restaurant reviews.
  - Password reset functionality.
+
+
+### Test edit ###
