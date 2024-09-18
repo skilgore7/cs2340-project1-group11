@@ -34,4 +34,21 @@ Atlanta Food Finder is a web application built using Django and Google Maps API 
     - Write and view restaurant reviews.
     - Password reset functionality.
 
-### Test edit ###
+### TEAM NOTES, FROM FARIS ###
+
+ I used the following stylesheet, make sure to use it for continuity
+
+ ``` https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css ```
+
+ To add this to your html page, put the following code at the top of your page:
+
+```
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlanta Food Finder</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+</head>
+
+```
