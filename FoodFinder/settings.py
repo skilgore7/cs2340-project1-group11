@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 ###TEST
 from pathlib import Path
 
+import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -103,6 +105,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
+
+# create a virtual environment on mac
+# in some areas, you need to import google maps but the line below is good
+# GOOGLE_API_KEY = os.environment.get('MAPS_API')
 
 LANGUAGE_CODE = 'en-us'
 
