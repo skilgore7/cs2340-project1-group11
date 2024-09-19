@@ -1,0 +1,29 @@
+<!-- search/templates/search/search.html -->
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <title>Search Restaurants</title>
+</head>
+<body>
+    <h1>Find Restaurants Near You</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+
+    <h2>Restaurants Found:</h2>
+    <ul>
+        {% for restaurant in restaurants %}
+            <li>
+                <strong>{{ restaurant.name }}</strong> - {{ restaurant.vicinity }}<br>
+                Rating: {{ restaurant.rating }}<br>
+                Distance: {{ restaurant.distance }} meters (if applicable)
+            </li>
+        {% empty %}
+            <li>No restaurants found.</li>
+        {% end for %}
+    </ul>
+</body>
+</html>

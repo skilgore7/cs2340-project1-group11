@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # create a virtual environment on mac
 # in some areas, you need to import google maps but the line below is good
-# GOOGLE_API_KEY = os.environment.get('MAPS_API')
+GOOGLE_API_KEY = os.getenv('MAPS_API','AIzaSyA-gA_urq6wnjISp4aHa2IOhHJTu1my-EM')
 
 LANGUAGE_CODE = 'en-us'
 
