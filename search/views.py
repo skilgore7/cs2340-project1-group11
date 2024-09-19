@@ -28,10 +28,15 @@ def search_restaurants(request):
             # Get latitude and longitude from location (using Google Geocoding API)
             google_api_key = settings.GOOGLE_API_KEY
             geocode_url = "https://maps.googleapis.com/maps/api/geocode/json"
+
             geocode_params = {
                 'address': location,
                 'key': google_api_key
             }
+            # After making the API request:
+            geocode_response = requests.get(geocode_url, params=geocode_params)
+            print(geocode_response.status_code)  # Should return 200 if successful
+            print(geocode_response.json())  # Print the API response to check for any errors
 
             geocode_response = requests.get(geocode_url, params=geocode_params)
             geocode_data = geocode_response.json()
@@ -53,6 +58,8 @@ def search_restaurants(request):
 
                 places_response = requests.get(places_url, params=places_params)
                 places_data = places_response.json()
+
+                restaurants = places_data.get('results', [])
 
                 if places_data.get('results'):
                     restaurants = places_data['results']
