@@ -1,5 +1,5 @@
 # search/urls.py
-#https://chatgpt.com/share/66eb35f5-3d64-800a-9b98-9ddd1d1b9167
+#pip
 from django.urls import path
 from . import views
 
