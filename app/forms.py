@@ -15,3 +15,10 @@ class SearchForm(forms.Form):
     location = forms.CharField(label="Location", required=True, max_length=100)
     min_rating = forms.FloatField(label="Minimum Rating (1-5)", required=False)
     max_distance = forms.IntegerField(label="Maximum Distance (meters)", required=False)
+
+class UserRegisterForm(UserCreationForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']

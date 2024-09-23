@@ -1,0 +1,14 @@
+# Ignore Python bytecode
+__pycache__/
+*.py[cod]
+
+# Ignore virtual environment
+myenv/
+
+cs2340-project1-group11/
+
+# Ignore database
+db.sqlite3
+
+# Ignore secrets
+*.env
