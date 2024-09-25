@@ -15,6 +15,7 @@
         <form method="POST" action="{% url 'login' %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger">Log in</button>
+        </form>
         
             <div>
                 <br>
@@ -25,6 +26,7 @@
         <form method="POST" action="{% url 'register' %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger">Register</button>
+        </form>
     </div>
 </body>
 </html>
