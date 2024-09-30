@@ -2,6 +2,14 @@ from django.shortcuts import render
 import requests
 from ..forms import SearchForm
 from django.conf import settings
+from ..models import Restaurant, Favorite
+#Now need to import necessary features for when people are not authenticated (redirection, 404, etc)
+from django.contrib.auth.decorators import login_required #make sure only users who are authenticated can access this
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.shortcuts import get_object_or_404
+
+
 
 def search_restaurants(request):
     google_api_key = "AIzaSyA-gA_urq6wnjISp4aHa2IOhHJTu1my-EM"  # Replace with your actual API key
@@ -72,4 +80,34 @@ def search_restaurants(request):
 
     # Initial page load or invalid form submission
     return render(request, 'app/search.html', {'form': form})
+
+@login_required
+def favorites_list(request):
+    favorites = Favorite.objects.filter(user=request.user)
+    return render(request, 'app/favorites.html', {'favorites': favorites})
+
+@login_required
+def add_to_favorites(request):
+    #"Favorite" button will pass these fields through a request
+    if request.method == 'POST':
+        place_id = request.POST.get('place_id')
+        name = request.POST.get('name')
+        address = request.POST.get('address')
+        rating = request.POST.get('rating')
+
+        # Check if the restaunt is already in database to prevent duplicates
+        restaurant, created = Restaurant.objects.get_or_create(
+            place_id=place_id,
+            defaults={
+                'name': name,
+                'address': address,
+                'rating': rating,
+            }
+        )
+
+        # Add to favorites
+        Favorite.objects.get_or_create(user=request.user, restaurant=restaurant)
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
 
