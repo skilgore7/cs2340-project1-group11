@@ -55,7 +55,7 @@
 			const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 			const request = {
 				textQuery: "restaurant",
-				fields: ["displayName", "location", "businessStatus", "formattedAddress", "reviews", "types", "rating"],
+				fields: ["displayName", "location", "businessStatus", "formattedAddress", "reviews", "types", "rating", "id"],
 				includedType: "restaurant",
 				locationBias: {lat: 33.753746, lng: -84.386330},
 				//isOpenNow: true,
@@ -96,7 +96,7 @@
 						<div id="review">${reviewText}</div>
 						<a href="${authorUri}" target="_blank">Author: ${authorName}</a>
 						<div id="rating">Rating: ${reviewRating} stars</div>
-                        <a href="/restaurant_detail/${place.place_id}">View Details</a>`;
+                        <a href="/restaurant_detail/${place.id}">View Details</a>`;
 				} else {
 				contentString = "No reviews were found for " + place.displayName + ".";
 				}
