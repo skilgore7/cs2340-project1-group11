@@ -24,6 +24,8 @@ def restaurant_detail(request, place_id):
 
     context = {
         'restaurant': restaurant,
+        'google_api_key': google_api_key,  # Pass the API key to the template
     }
 
     return render(request, 'app/restaurant_detail.html', context)
+
