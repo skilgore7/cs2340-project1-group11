@@ -29,6 +29,7 @@
             {% for restaurant in restaurants %}
         </br>
                 <li>
+                    <strong><a href="{% url 'restaurant_detail' restaurant.place_id %}">{{ restaurant.name }}</a></strong><br>
                     <strong>{{ restaurant.name }}</strong><br>
                     Rating: {{ restaurant.rating }}<br>
                     Address: {{ restaurant.vicinity }}<br>

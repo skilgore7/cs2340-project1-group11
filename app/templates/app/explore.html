@@ -76,6 +76,7 @@
 				
 				// Loop through and get all the results.
 				places.forEach((place) => {
+
 				// If there are any reviews display the first one.
 				if (place.reviews && place.reviews.length > 0) {
 				// Get info for the first review.
@@ -94,7 +95,8 @@
 						<hr>
 						<div id="review">${reviewText}</div>
 						<a href="${authorUri}" target="_blank">Author: ${authorName}</a>
-						<div id="rating">Rating: ${reviewRating} stars</div>`;
+						<div id="rating">Rating: ${reviewRating} stars</div>
+                        <a href="/restaurant_detail/${place.place_id}">View Details</a>`;
 				} else {
 				contentString = "No reviews were found for " + place.displayName + ".";
 				}
