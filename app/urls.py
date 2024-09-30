@@ -11,4 +11,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='landingPage'), name='logout'),
     path('explore/', map_views.ExploreMap.as_view(), name='explore'),
     path('search/', search_views.search_restaurants, name='search_restaurants'),
+    path('favorites/', search_views.favorites_list, name='favorites_list'),
+    path('add_to_favorites/', search_views.add_to_favorites, name='add_to_favorites'),
 ]
