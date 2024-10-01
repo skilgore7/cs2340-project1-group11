@@ -21,10 +21,12 @@ def restaurant_detail(request, place_id):
         restaurant = restaurant_data['result']
     else:
         return render(request, 'app/404.html')  # Handle not found
-
+    cuisine_types = restaurant.get('result', {}).get('types', [])
+    formatted_cuisine = ', '.join(cuisine_types)
     context = {
         'restaurant': restaurant,
-        'google_api_key': google_api_key,  # Pass the API key to the template
+        'google_api_key': google_api_key,
+        'cuisine' : formatted_cuisine,
     }
 
     return render(request, 'app/restaurant_detail.html', context)
