@@ -10,7 +10,7 @@
 <body>
     <h1>Search for Restaurants</h1>
     </br>
-    <form method="post" action="{% url 'search_restaurants' %}">
+    <form method="post" action="{% url 'search_restaurants' %}">ç
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Search &#128269;</button>
