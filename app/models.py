@@ -22,6 +22,7 @@ class Restaurant(models.Model):
 # Create your models here.
 
 class Favorite(models.Model):
+    objects = None
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites')
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='favorited_by')
     added_at = models.DateTimeField(auto_now_add=True)
