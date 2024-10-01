@@ -1,16 +1,21 @@
-<!-- search/templates/search/search.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurant Search</title>
+    <title>{{ restaurant.name }}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'landingPage' %}">  </a>
+            <a class="navbar-brand" href="{% url 'landingPage' %}">ATL Food Finder</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -51,65 +56,51 @@
         </div>
     </nav>
     
-    <h1>Search for Restaurants</h1>
-    </br>
-    <form method="post" action="{% url 'search_restaurants' %}">ç
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Search &#128269;</button>
-    </form>
+    <div class="container">
+        <h1>{{ restaurant.name }}</h1>
+        <p><strong>Address:</strong> {{ restaurant.formatted_address }}</p>
+        <p><strong>Contact:</strong> {{ restaurant.formated_phone_number }}</p>
+        <p><strong>Rating:</strong> {{ restaurant.rating }} stars</p>
+        <p><strong>Cuisine:</strong> {{ restaurant.primaryType}}</p>
+        <p><strong>Opening Hours:</strong> {% if restaurant.opening_hours %}{{ restaurant.opening_hours.open_now|yesno:"Open,Closed" }}{% else %}Not available{% endif %}</p>
 
-    {% if error %}
-        <p style="color: red;">{{ error }}</p>
-    {% endif %}
+        <h2>Reviews</h2>
+        {% if restaurant.reviews %}
+            <ul>
+                {% for review in restaurant.reviews %}
+                    <li><strong>{{ review.author_name }}</strong>: {{ review.text }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No reviews available.</p>
+        {% endif %}
 
-    {% if restaurants %}
-    <p>_____________________________________________________________</p>
-    </br>
-        <h2>Search Results</h2>
-    </br>
-        <ul>
-            {% for restaurant in restaurants %}
-        </br>
-                <li>
-                    <strong><a href="{% url 'restaurant_detail' restaurant.place_id %}">{{ restaurant.name }}</a></strong><br>
-                    <strong>{{ restaurant.name }}</strong><br>
-                    Rating: {{ restaurant.rating }}<br>
-                    Address: {{ restaurant.vicinity }}<br>
-                    <!-- Hidden "form" that sends the restaurant information to the favorites builds-->
-                    <form method="POST" action="{% url 'add_to_favorites' %}">
-                        {% csrf_token %}
-                        <input type="hidden" name="place_id" value="{{ restaurant.place_id }}">
-                        <input type="hidden" name="name" value="{{ restaurant.name }}">
-                        <input type="hidden" name="address" value="{{ restaurant.vicinity }}">
-                        <input type="hidden" name="rating" value="{{ restaurant.rating }}">
-                        <button type="submit" class="btn btn-danger">&#129505; Favorite!</button>
-                    </form>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No restaurants found.</p>
-    {% endif %}
+        <h2>Location</h2>
+        <div id="map"></div> <!-- Map container -->
+
+        <a href="{% url 'favorites_list' %}" class="btn btn-secondary">Go to Favorites</a>
+    </div>
+
+    <script async src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&loading=async&callback=initMap" defer></script>
+    <script>
+        async function initMap() {
+			const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+            const restaurantLocation = {
+                lat: {{ restaurant.geometry.location.lat }},
+                lng: {{ restaurant.geometry.location.lng }}
+            };
+
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: restaurantLocation,
+            });
+
+            const marker = new AdvancedMarkerElement({
+                map,
+                position: restaurantLocation,
+                title: "{{ restaurant.name }}",
+            });
+        }
+    </script>
 </body>
-<style>
-    #map {
-            width: 100%;
-            height: 100%;
-        
-    }
-    .content_right {
-        position: absolute;
-        width: 55%;
-        height: 100%;
-        right: 0px;
-        top: 0px;
-        border-left: none;
-        overflow-x: hidden;
-        overflow-y: hidden;
-    }
-</style>
-<div class="content_right">
-    {% include "app\explore.html" %}    
-</div>
 </html>

@@ -1,7 +1,7 @@
-from django.contrib.auth import views as auth_views
 from django.urls import path
-
 from .views import map_views, users_views, search_views
+from django.contrib.auth import views as auth_views
+from django.contrib import messages
 
 urlpatterns = [
     path('register/', users_views.register, name='register'),
