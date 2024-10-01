@@ -6,6 +6,7 @@ from ..models import Restaurant, Favorite
 #Now need to import necessary features for when people are not authenticated (redirection, 404, etc)
 from django.contrib.auth.decorators import login_required #make sure only users who are authenticated can access this
 from django.http import HttpResponseRedirect
+
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 

@@ -1,6 +1,6 @@
-from django.shortcuts import render, get_object_or_404
 import requests
 from django.conf import settings
+from django.shortcuts import render
 
 
 def restaurant_detail(request, place_id):
