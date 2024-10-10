@@ -1,6 +1,5 @@
-from app.views.restaurant_details import restaurant_detail
 from django.urls import path
-from .views import map_views, users_views, search_views
+from .views import map_views, users_views, search_views, restaurant_details
 from django.contrib.auth import views as auth_views
 from django.contrib import messages
 
@@ -17,5 +16,6 @@ urlpatterns = [
     path('favorites/', search_views.favorites_list, name='favorites_list'),
     path('add_to_favorites/', search_views.add_to_favorites, name='add_to_favorites'),
     path('remove_from_favorites/', search_views.remove_from_favorites, name='remove_from_favorites'),
-    path('restaurant_detail/<str:place_id>/', restaurant_detail, name='restaurant_detail'),
+    path('restaurant_detail/<str:place_id>/', restaurant_details.restaurant_detail, name='restaurant_detail'),
+
 ]
