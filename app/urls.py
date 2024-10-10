@@ -17,5 +17,4 @@ urlpatterns = [
     path('add_to_favorites/', search_views.add_to_favorites, name='add_to_favorites'),
     path('remove_from_favorites/', search_views.remove_from_favorites, name='remove_from_favorites'),
     path('restaurant_detail/<str:place_id>/', restaurant_details.restaurant_detail, name='restaurant_detail'),
-
 ]
