@@ -60,7 +60,15 @@
                 <li>
                     <strong>{{ favorite.restaurant.name }}</strong><br>
                     Rating: {{ favorite.restaurant.rating }}<br>
-                    Address: {{ favorite.restaurant.address }}<br>
+                    Address: {{ favorite.restaurant.address }}<br><br><br>
+                    <form method="POST" action="{% url 'remove_from_favorites' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="place_id" value="{{ favorite.restaurant.place_id }}">
+                        <input type="hidden" name="name" value="{{ favorite.restaurant.name }}">
+                        <input type="hidden" name="address" value="{{ favorite.restaurant.vicinity }}">
+                        <input type="hidden" name="rating" value="{{ favorite.restaurant.rating }}">
+                        <button type="submit" class="btn btn-danger">&#128078; UnFavorite</button>
+                    </form>
                 </li>
             {% endfor %}
         </ul>

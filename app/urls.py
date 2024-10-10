@@ -16,5 +16,6 @@ urlpatterns = [
     path('get_security_question/', users_views.get_security_question, name='get_security_question'),
     path('favorites/', search_views.favorites_list, name='favorites_list'),
     path('add_to_favorites/', search_views.add_to_favorites, name='add_to_favorites'),
+    path('remove_from_favorites/', search_views.remove_from_favorites, name='remove_from_favorites'),
     path('restaurant_detail/<str:place_id>/', restaurant_detail, name='restaurant_detail'),
 ]

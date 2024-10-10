@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required #make sure only users 
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
 
 
@@ -109,5 +110,35 @@ def add_to_favorites(request):
         Favorite.objects.get_or_create(user=request.user, restaurant=restaurant)
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+@login_required
+def remove_from_favorites(request):
+    if request.method == 'POST':
+        place_id = request.POST.get('place_id')
+        
+        if not place_id:
+            print("ERROR: No restaurant specified")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+            
+        try:
+            # Retrieve the Restaurant object based on place_id
+            restaurant = Restaurant.objects.get(place_id=place_id)
+            
+            # Retrieve the Favorite object linking the user and restaurant
+            favorite = Favorite.objects.get(user=request.user, restaurant=restaurant)
+            
+            # Delete the Favorite object
+            favorite.delete()
+            
+            messages.success(request, f"Removed '{restaurant.name}' from your favorites.")
+        except Restaurant.DoesNotExist:
+            messages.error(request, "Restaurant does not exist.")
+        except Favorite.DoesNotExist:
+            messages.error(request, "This restaurant is not in your favorites.")
+    else:
+        messages.error(request, "Invalid request method.")
+    
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        
 
 
