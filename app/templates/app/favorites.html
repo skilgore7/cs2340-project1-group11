@@ -61,7 +61,9 @@
         <ul class="list-unstyled">
             {% for favorite in favorites %}
                 <li class="mb-4">
-                    <strong>{{ favorite.restaurant.name }}</strong><br>
+                    <strong>
+                    <a href="{% url 'restaurant_detail' favorite.restaurant.place_id %}">{{ favorite.restaurant.name }}</a>
+                    </strong><br>
                     Rating: {{ favorite.restaurant.rating }}<br>
                     Address: {{ favorite.restaurant.address }}<br><br>
                     <form method="POST" action="{% url 'remove_from_favorites' %}">
