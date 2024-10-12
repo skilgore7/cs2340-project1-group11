@@ -1,5 +1,5 @@
 body {
-    background: white url("images/peaches.jpeg") no-repeat;
+    background: white url("images/atlanta.jpeg") no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -7,7 +7,7 @@ body {
 
 /* For the left half background image */
 .left-half {
-    background-image: url("images/peaches.jpeg"); /* Your image path */
+    background-image: url("images/atlanta.jpeg"); /* Your image path */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -18,7 +18,7 @@ body {
 
 /* For the right half content */
 .right-half {
-    width: 50%;
+    width: 55%;
     float: right;
     height: 100vh;
     overflow-y: auto;  /* Allow scrolling for long content */

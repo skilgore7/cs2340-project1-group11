@@ -20,42 +20,72 @@
             margin-top: 20px;
             color: #0d6efd;
         }
+
+        /* Main Container Styling */
+        .main-container {
+            background: #ffffff;
+            border-radius: 25px;
+            margin: 20px auto;
+            padding: 25px;
+            width: 75%; /* Adjust width to fit search page content */
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); /* Optional shadow for effect */
+        }
+
+        /* Background styling */
+        .background {
+            background-image: url("{% static 'app/images/Atlanta-Skyline.jpeg' %}"); /* Background Image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh; /* Full height */
+        }
+
         .search-form {
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
         }
+
         .restaurant-card {
             margin: 20px 0;
         }
+
         .favorite-btn {
             margin-top: 10px;
         }
+
         #map {
             width: 100%;
             height: 500px;
         }
+
         .map-container {
             margin-top: 30px;
         }
+
         .content-wrapper {
             display: flex;
             justify-content: space-between;
         }
+
         .results-wrapper {
             width: 60%;
         }
+
         .map-wrapper {
             width: 35%;
         }
+
         @media (max-width: 768px) {
             .content-wrapper {
                 flex-direction: column;
             }
+
             .results-wrapper, .map-wrapper {
                 width: 100%;
             }
         }
+
         footer {
             text-align: center;
             margin-top: 40px;
@@ -65,7 +95,7 @@
         }
     </style>
 </head>
-<body>
+<body class="background">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'landingPage' %}">Atlanta Food Finder</a>
@@ -109,63 +139,70 @@
         </div>
     </nav>
 
-    <h1>Find Your Favorite Restaurant</h1>
+    <!-- Main Container with Background -->
+    <div class="main-container mt-5">
+        <h1>Find Your Favorite Restaurant</h1>
 
-    <div class="search-form">
-        <form method="post" action="{% url 'search_restaurants' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary w-100">Search &#128269;</button>
-        </form>
-    </div>
-
-    {% if error %}
-        <div class="alert alert-danger text-center">
-            {{ error }}
+        <!-- Search Form -->
+        <div class="search-form">
+            <form method="post" action="{% url 'search_restaurants' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary w-100">Search &#128269;</button>
+            </form>
         </div>
-    {% endif %}
 
-    <div class="container content-wrapper">
-        <div class="results-wrapper">
-            {% if restaurants %}
-                <h2>Search Results</h2>
-                <div class="row">
-                    {% for restaurant in restaurants %}
-                    <div class="col-md-12 restaurant-card">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="{% url 'restaurant_detail' restaurant.place_id %}">{{ restaurant.name }}</a>
-                                </h5>
-                                <p class="card-text">
-                                    Rating: {{ restaurant.rating }}<br>
-                                    Address: {{ restaurant.vicinity }}
-                                </p>
-                                <form method="POST" action="{% url 'add_to_favorites' %}">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="place_id" value="{{ restaurant.place_id }}">
-                                    <input type="hidden" name="name" value="{{ restaurant.name }}">
-                                    <input type="hidden" name="address" value="{{ restaurant.vicinity }}">
-                                    <input type="hidden" name="rating" value="{{ restaurant.rating }}">
-                                    <button type="submit" class="btn btn-danger favorite-btn">
-                                        &#129505; Add to Favorites
-                                    </button>
-                                </form>
+        {% if error %}
+            <div class="alert alert-danger text-center">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <!-- Content Wrapper (Search Results and Map) -->
+        <div class="content-wrapper">
+            <div class="results-wrapper">
+                {% if restaurants %}
+                    <h2>Search Results</h2>
+                    <div class="row">
+                        {% for restaurant in restaurants %}
+                        <div class="col-md-12 restaurant-card">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <a href="{% url 'restaurant_detail' restaurant.place_id %}">{{ restaurant.name }}</a>
+                                    </h5>
+                                    <p class="card-text">
+                                        Rating: {{ restaurant.rating }}<br>
+                                        Address: {{ restaurant.vicinity }}
+                                    </p>
+                                    <form method="POST" action="{% url 'add_to_favorites' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="place_id" value="{{ restaurant.place_id }}">
+                                        <input type="hidden" name="name" value="{{ restaurant.name }}">
+                                        <input type="hidden" name="address" value="{{ restaurant.vicinity }}">
+                                        <input type="hidden" name="rating" value="{{ restaurant.rating }}">
+                                        <button type="submit" class="btn btn-danger favorite-btn">
+                                            &#129505; Add to Favorites
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p class="text-center">No restaurants found.</p>
-            {% endif %}
-        </div>
+                {% else %}
+                    <p class="text-center">No restaurants found.</p>
+                {% endif %}
+            </div>
 
-        <div class="map-wrapper">
-            <div id="map"></div>
+            <!-- Map Section -->
+            <div class="map-wrapper">
+                <div id="map"></div>
+            </div>
         </div>
     </div>
 
+    <!-- Footer -->
     <footer>
         &copy; 2024 RestaurantFinder. All Rights Reserved.
     </footer>
@@ -219,6 +256,8 @@
     </script>
 </body>
 </html>
+
+
 
 
 

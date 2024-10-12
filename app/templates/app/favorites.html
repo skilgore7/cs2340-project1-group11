@@ -54,15 +54,16 @@
         </div>
     </nav>
 
+    <!-- Left content (Favorites) -->
+    <div class="container mt-5 p-4 bg-light rounded" style="width: 45%; float: left;">
     <h1>Your Favorite Restaurants</h1>
     {% if favorites %}
-        <ul>
+        <ul class="list-unstyled">
             {% for favorite in favorites %}
-            <br><br>
-                <li>
+                <li class="mb-4">
                     <strong>{{ favorite.restaurant.name }}</strong><br>
                     Rating: {{ favorite.restaurant.rating }}<br>
-                    Address: {{ favorite.restaurant.address }}<br><br><br>
+                    Address: {{ favorite.restaurant.address }}<br><br>
                     <form method="POST" action="{% url 'remove_from_favorites' %}">
                         {% csrf_token %}
                         <input type="hidden" name="place_id" value="{{ favorite.restaurant.place_id }}">
@@ -75,14 +76,14 @@
             {% endfor %}
         </ul>
     {% else %}
-        <br><br><br>
-        <h2>Picky much? You've favorited nothing! </h2>
+        <h2>Picky much? You've favorited nothing!</h2>
     {% endif %}
+</div>
 </body>
 <style>
     .content_right {
         position: absolute;
-        width: 55%;
+        width: 50%;
         height: 100%;
         right: 0;
         top: 0;
