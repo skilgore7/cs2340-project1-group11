@@ -13,14 +13,12 @@
       background-image: url("../../static/app/images/Atlanta-Skyline.jpeg");
       
     }
-  </style>
-  <body class="background">
-  </body>
-<body>
+</style>
+<body class="background">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'landingPage' %}">ATL Food Finder</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -59,6 +57,7 @@
             </div>
         </div>
     </nav>
+
     <style>
         .MyContainer div {
             background: #ffffff;
@@ -70,25 +69,27 @@
             left: 25%;
             padding: 25px;
         }
-      </style>
-      <div class="MyContainer">
-    <div class="container mt-5">
-        <h1>Welcome to Atlanta Food Finder!</h1>
-        <p>This is the Landing page. Please Login or Register to Access your restaurants!</p>
-        
-        <h3>Already have an account? Welcome back!</h3>
-        <form method="POST" action="{% url 'login' %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Log in</button>
-        </form>
-        <br>
-        </br>
-        <h3>New to ATL Food Finder? Please create an account!</h3>
-        <form method="POST" action="{% url 'register' %}">
-            {% csrf_token %}
-            <button type="button" class="btn btn-danger">Register</button>
-        </form>
-    </div>
+    </style>
+
+    <div class="MyContainer">
+        <div class="container mt-5">
+            <h1>Welcome to Atlanta Food Finder!</h1>
+            <p>This is the Landing page. Please Login or Register to Access your restaurants!</p>
+
+            <h3>Already have an account? Welcome back!</h3>
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Log in</button>
+            </form>
+            <br><br>
+
+            <h3>New to ATL Food Finder? Please create an account!</h3>
+            <!-- Corrected Register Button -->
+            <form method="GET" action="{% url 'register' %}">
+                <button type="submit" class="btn btn-danger">Register</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
+
